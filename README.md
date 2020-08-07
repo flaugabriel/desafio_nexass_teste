@@ -27,8 +27,8 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 ## CADASTRA NOVO PRODUTO
 * Parametros enviados no formato json
 * Definir o headers:
-key: Content-Type
-value: application/json
+   * key: Content-Type
+   * value: application/json
 
 * URL
  POST http://localhost:3000/api/v1/products
