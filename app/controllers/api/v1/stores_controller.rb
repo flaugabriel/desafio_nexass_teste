@@ -1,51 +1,64 @@
-class StoresController < ApplicationController
-  before_action :set_store, only: [:show, :update, :destroy]
+module Api
+  module V1
+    class StoresController < ApplicationController
+      before_action :set_store, only: %i[show update destroy]
+    
+      # GET /stores
+      def index
+        @stores = Store.all
+      
+        render json: @stores
+      end
+    
+      # GET /stores/1
+      def show
+        if @store.present?
+          render json: @store
+        else
+          render json: { msg: 'Loja não encontrada!' }
+        end
+      end
+    
+      # POST /stores
+      def create
+        @store = Store.new(store_params)
+      
+        if @store.save
+          render json: { msg: 'Loja registrada!', status: :created }
+        else
+          render json: @store.errors, status: :unprocessable_entity
+        end
+      end
+    
+      # PATCH/PUT /stores/1
+      def update
+        if @store.update(store_params)
+        render json: { msg: 'Loja atualizada!', status: :created }
+        else
+          render json: @store.errors, status: :unprocessable_entity
+        end
+      end
+    
+      # DELETE /stores/1
+      def destroy
+        if @store.present?
+          @store.destroy
+          render json: { msg: 'Loja removida!' }
+        else
+          render json: { msg: 'Loja não existe!' }
+        end
+      end
 
-  # GET /stores
-  def index
-    @stores = Store.all
+    private
+      # Use callbacks to share common setup or constraints between actions.
+      def set_store
+        @store = Store.where(id: params[:id]).take
+      end
 
-    render json: @stores
-  end
-
-  # GET /stores/1
-  def show
-    render json: @store
-  end
-
-  # POST /stores
-  def create
-    @store = Store.new(store_params)
-
-    if @store.save
-      render json: @store, status: :created, location: @store
-    else
-      render json: @store.errors, status: :unprocessable_entity
+      # Only allow a trusted parameter "white list" through.
+      def store_params
+        params.require(:store).permit(:name, :street, :neighborhood, :city, :cep)
+      end
     end
   end
-
-  # PATCH/PUT /stores/1
-  def update
-    if @store.update(store_params)
-      render json: @store
-    else
-      render json: @store.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /stores/1
-  def destroy
-    @store.destroy
-  end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_store
-      @store = Store.find(params[:id])
-    end
-
-    # Only allow a trusted parameter "white list" through.
-    def store_params
-      params.require(:store).permit(:name, :street, :neighborhood, :city, :cep)
-    end
 end
