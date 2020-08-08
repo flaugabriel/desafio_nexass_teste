@@ -5,19 +5,6 @@ module Api
     class StockitemsController < ApplicationController
       before_action :find_product, only: %i[add lower]
 
-      # GET /stockitems
-      def index
-        @stockitems = Stockitem.all
-
-        render json: @stockitems
-      end
-
-      # GET /stockitems/1
-      def show
-        render json: @stockitem
-      end
-
-      # POST /stockitems
       def create
         @stockitem = Stockitem.new(stockitem_params)
         if @stockitem.save
@@ -27,7 +14,6 @@ module Api
         end
       end
 
-      # PATCH/PUT /quantities_of_product/1
       def add
         return_of_stock = []
         new_stock_itens = @stockitem.quantities_by_products_add(stockitem_params.merge(product_id: @stock_product.id))
@@ -54,11 +40,6 @@ module Api
           return_of_stock.push(get_stock)
         end
         render json: return_of_stock
-      end
-
-      # DELETE /stockitems/1
-      def destroy
-        @stockitem.destroy
       end
 
       private

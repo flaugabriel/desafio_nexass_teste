@@ -28,18 +28,17 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 * Caso não opite por esta configuração do banco de dados, basta altera o database.yml para forma que preferi.
 
 # Operações sobre produto
-* Parametros enviados no formato json
-* Definir o headers:
-   * key: Content-Type
-   * value: application/json
+
 
 #### CADASTRA NOVO PRODUTO
 
-
-* URL
-  * POST http://localhost:3000/api/v1/products
-
-
+* URL de envio: 
+```shell
+curl --location --request POST 'http://localhost:3000/api/v1/products' \
+--header 'Content-Type: application/json' \
+--data-raw '{"product":{"name":"Suporte para 2 monitor MDBT","price": 250.00}}'
+```
+* exemplo de envio via body
 ```json
 {
   "product":
@@ -59,11 +58,14 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 ```
 
 #### ALTERA PRODUTO
-* Parametro id=1
+* Parametro id=6 
 * URL
-  * PUT http://localhost:3000/api/v1/products/:id
-* exemplo http://localhost:3000/api/v1/products/1
-
+```shell
+ curl --location --request PUT 'http://localhost:3000/api/v1/products/6' \
+--header ': ' \
+--header 'Content-Type: application/json' \
+--data-raw '{"product":{"name":"Suporte para 2 monitor MDBT no maximo 37 polegadas","price": 255.00}}'1
+```
 
 * json enviado via body:
 
@@ -86,8 +88,9 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 #### EXCLUIR UM PRODUTO
 * parametro id=6
 * URL 
-  * DELETE http://localhost:3000/api/v1/products/:id
-* exemplo http://localhost:3000/api/v1/products/6
+```shell
+curl --location --request DELETE 'http://localhost:3000/api/v1/products/3'
+```
 * retorno 
 ```json
 {
@@ -101,11 +104,11 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 }
 ```
 #### PESQUISAR PRODUTO
-* parametro id=5
+* parametro id=4 
 * URL 
-  * GET http://localhost:3000/api/v1/products/:id
-* exemplo http://localhost:3000/api/v1/products/6
-
+```shell
+curl --location --request GET 'http://localhost:3000/api/v1/products/4'
+```
 * exemplo de retorno
 ```json
 {
@@ -123,18 +126,16 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 }
 ```
 # OPERAÇÕES SOBRE LOJAS
-* Parametros enviados no formato json
-* Definir o headers:
-   * key: Content-Type
-   * value: application/json
 
 #### CADASTRA LOJA
-* Parametros enviados no formato json
 
 * URL
-  * POST http://localhost:3000/api/v1/stores
-
-
+```shell
+curl --location --request POST 'http://localhost:3000/api/v1/stores' \
+--header 'Content-Type: application/json' \
+--data-raw '{"store":{"name":"loja 555","street": "Algodoeiro", "neighborhood": "Eletronorte",     "city":"Porto Velho", "cep": 76808518}}'
+```
+* exemplo de envio via body
 ```json
 {
   "store":
@@ -159,10 +160,10 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 #### ALTERA UMA LOJA
 * Parametro id=1
 * URL
-  PUT http://localhost:3000/api/v1/stores/:id
-* exemplo http://localhost:3000/api/v1/stores/1
+```shell
+curl --location --request GET 'http://localhost:3000/api/v1/stores/6'
+```
 * json enviado via body:
-
 ```json
 {
   "store":
@@ -185,8 +186,9 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 #### EXCLUIR UMA LOJA
 * parametro id=1
 * URL 
-  DELETE http://localhost:3000/api/v1/stores/:id
-* exemplo http://localhost:3000/api/v1/stores/1
+```shell
+curl --location --request DELETE 'http://localhost:3000/api/v1/stores/6'
+```
 * retorno 
 ```json
 {
@@ -202,9 +204,9 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 #### PESQUISAR LOJA
 * parametro id=1
 * URL 
-  GET http://localhost:3000/api/v1/stores/:id
-* exemplo http://localhost:3000/api/v1/stores/1
-
+```shell
+curl --location --request GET 'http://localhost:3000/api/v1/stores/4'
+```
 * exemplo de retorno
 ```json
 {
@@ -226,19 +228,24 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 }
 ```
 # OPERAÇÕES EM ESTOQUE
-* Parametros enviados no formato json
-* Definir o headers:
-   * key: Content-Type
-   * value: application/json
-
 #### INSERINDO ITENS AO ESTOQUE 
 * requisitos via body:
   * id de um produto
   * id de uma loja 
   * quantidade
 * URL
-  * POST http://localhost:3000/api/v1/stockitems
-
+```shell
+curl --location --request POST 'http://localhost:3000/api/v1/stockitems' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "stockitem":
+  {
+    "product_id": 5,
+    "store_id": 5,
+    "quantities": 4
+  }
+}'
+```
 * exemplo enviado
 ```json
 {
@@ -269,9 +276,16 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 * requisitos via body:
   * quantidade
 * URL
-  * PUT  http://localhost:3000/api/v1/stockitems/add_quantities_of_product/:product_id
-  * exemplo http://localhost:3000/api/v1/stockitems/lower/5
-
+```shell
+curl --location --request PUT 'http://localhost:3000/api/v1/stockitems/add/5' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "stockitem":
+  {
+    "quantities": 1
+  }
+}'
+```
 * exemplo de envio
 
 ```json
@@ -319,10 +333,17 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 * requisitos body:
   * quantidade
 * URL
-  * PUT  http://localhost:3000/api/v1/stockitems/lower/:product_id
-  * exemplo http://localhost:3000/api/v1/stockitems/lower/5
-
-  * exemplo de envio
+```shell
+curl --location --request PUT 'http://localhost:3000/api/v1/stockitems/lower/5' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "stockitem":
+  {
+    "quantities": 1
+  }
+}'
+```
+* exemplo de envio
 
 ```json
 {
