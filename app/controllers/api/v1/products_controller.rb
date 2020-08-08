@@ -15,7 +15,7 @@ module Api
         if @product.present?
           render json: @product
         else
-          render json: { msg: 'Produto não encontrado!' }
+          render json: { msg: 'Produto não encontrado!', status: status }
         end
       end
 
@@ -23,28 +23,32 @@ module Api
       def create
         @product = Product.new(product_params)
         if @product.save
-          render json: { msg: 'Produto registrado!', status: :created }
+          render json: { msg: 'Produto registrado!', status: status, product: @product }
         else
-          render json: @product.errors, status: :unprocessable_entity
+          render json: @product.errors.full_messages.to_sentence, status: status
         end
       end
     
       # PATCH/PUT /products/1
       def update
         if @product.update(product_params)
-          render json: { msg: 'Produto atualizado!', status: :created }
+          render json: { msg: 'Produto atualizado!', status: status }
         else
-          render json: @product.errors, status: :unprocessable_entity
+          render json: @product.errors, status: status
         end
       end
     
       # DELETE /products/1
       def destroy
         if @product.present?
-          @product.destroy
-          render json: { msg: 'Produto removido!' }
+          if Product.find_product_stock(@product.id).present?
+            render json: { msg: 'Produto com estoque!', status: status }
+          else
+            @product.delete
+            render json: { msg: 'Produto removido!', status: status }
+          end
         else
-          render json: { msg: 'Produto não existe!'}
+          render json: { msg: 'Produto não existe!', status: status }
         end
       end
 
@@ -59,5 +63,5 @@ module Api
         params.require(:product).permit(:name, :price)
       end
     end
-  end 
+  end
 end

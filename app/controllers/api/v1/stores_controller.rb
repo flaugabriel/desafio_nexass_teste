@@ -24,28 +24,32 @@ module Api
         @store = Store.new(store_params)
       
         if @store.save
-          render json: { msg: 'Loja registrada!', status: :created }
+          render json: { msg: 'Loja registrada!', status: status, store: @store }
         else
-          render json: @store.errors, status: :unprocessable_entity
+          render json: @store.errors.full_messages.to_sentence, status: status
         end
       end
     
       # PATCH/PUT /stores/1
       def update
         if @store.update(store_params)
-        render json: { msg: 'Loja atualizada!', status: :created }
+        render json: { msg: 'Loja atualizada!', status: status }
         else
-          render json: @store.errors, status: :unprocessable_entity
+          render json: @store.errors, status: status
         end
       end
     
       # DELETE /stores/1
       def destroy
         if @store.present?
-          @store.destroy
-          render json: { msg: 'Loja removida!' }
+          if Store.find_store_stock(@store.id).present?
+            render json: { msg: 'Loja com estoque!', status: status }
+          else
+            @store.delete
+            render json: { msg: 'Loja removido!', status: status }
+          end
         else
-          render json: { msg: 'Loja não existe!' }
+          render json: { msg: 'Loja não existe!', status: status }
         end
       end
 
