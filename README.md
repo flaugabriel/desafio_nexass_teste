@@ -238,7 +238,7 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 * URL
   * POST http://localhost:3000/api/v1/stockitems
 
-* exemplo json enviado
+* exemplo enviado
 ```
 {
   "stockitem":

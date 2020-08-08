@@ -5,7 +5,7 @@ class Stockitem < ApplicationRecord
   belongs_to :store
   validates_presence_of :quantities
 
-  validate :not_min_quantities
+  validate :not_min_quantities, on: :update
 
   def not_min_quantities
     quantities_of_id = Stockitem.find(id)
