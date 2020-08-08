@@ -3,8 +3,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :stockitems do
         collection do
-          put 'add_quantities_of_product/:product_id', to: 'stockitems#add_quantities_of_product'
-          put 'lower_quantities_of_product/:product_id', to: 'stockitems#lower_quantities_of_product'
+          put 'add/:product_id', to: 'stockitems#add'
+          put 'lower/:product_id', to: 'stockitems#lower'
         end
       end
       resources :stores

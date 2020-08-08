@@ -3,7 +3,7 @@
 module Api
   module V1
     class StockitemsController < ApplicationController
-      before_action :find_product, only: %i[quantities_of_product]
+      before_action :find_product, only: %i[add lower]
 
       # GET /stockitems
       def index
@@ -28,34 +28,32 @@ module Api
       end
 
       # PATCH/PUT /quantities_of_product/1
-      def add_quantities_of_product
+      def add
         return_of_stock = []
-        if @stock_product.present?
-          new_stock_itens = @stockitem.reload_quantities_by_products_add(stockitem_params.merge(product_id: @stock_product.id))
-          new_stock_itens.each do |new_stock_item|
-            get_stock = Stockitem.find(new_stock_item[:id])
-            get_stock.update(quantities: new_stock_item[:quantities].to_i)
-            return_of_stock.push(get_stock)
-          end
-          render json: return_of_stock
-        else
-          render json: { msg: 'Produto não existe em estoque' }
+        new_stock_itens = @stockitem.quantities_by_products_add(stockitem_params.merge(product_id: @stock_product.id))
+        new_stock_itens.each do |new_stock_item|
+          get_stock = Stockitem.find(new_stock_item[:id])
+          get_stock.update(quantities: new_stock_item[:quantities].to_i)
+          return_of_stock.push(get_stock)
         end
+        render json: return_of_stock
       end
 
-      def lower_quantities_of_product
+      def lower
         return_of_stock = []
-        if @stock_product.present?
-          new_stock_itens = @stockitem.reload_quantities_by_products_lower(stockitem_params.merge(product_id: @stock_product.id))
-          new_stock_itens.each do |new_stock_item|
-            get_stock = Stockitem.find(new_stock_item[:id])
-            get_stock.update(quantities: new_stock_item[:quantities].to_i)
-            return_of_stock.push(get_stock)
+        new_stock_itens = @stockitem.quantities_by_products_lower(stockitem_params.merge(product_id: @stock_product.id))
+        new_stock_itens.each do |new_stock_item|
+          get_stock = Stockitem.find(new_stock_item[:id])
+          get_stock.update(quantities: new_stock_item[:quantities].to_i)
+          if get_stock.errors.messages.present?
+            get_stock.errors.messages[:quantities].each do |errors|
+              return_of_stock.push(errors)
+            end
+            next
           end
-          render json: return_of_stock
-        else
-          render json: { msg: 'Produto não existe em estoque' }
+          return_of_stock.push(get_stock)
         end
+        render json: return_of_stock
       end
 
       # DELETE /stockitems/1
@@ -67,8 +65,12 @@ module Api
 
       # Use callbacks to share common setup or constraints between actions.
       def find_product
-        @stockitem = Stockitem.new
         @stock_product = Product.where(id: params[:product_id]).take
+        if @stock_product.present?
+          @stockitem = Stockitem.new
+        else
+          render json: { msg: 'Produto não existe em estoque' }
+        end
       end
 
       # Only allow a trusted parameter "white list" through.

@@ -231,7 +231,7 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
    * value: application/json
 
 #### INSERINDO ITENS AO ESTOQUE 
-* requisitos:
+* requisitos via body:
   * id de um produto
   * id de uma loja 
   * quantidade
@@ -263,11 +263,24 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 }
 ```
 #### ADICIONAR ITENS DE UM PRODUTO AO ESTOQUE
-* requisitos:
-  * id de um produto
+* requisitos via url
+  * produto_id
+* requisitos via body:
   * quantidade
 * URL
   * PUT  http://localhost:3000/api/v1/stockitems/add_quantities_of_product/:product_id
+  * exemplo http://localhost:3000/api/v1/stockitems/lower/5
+
+* exemplo de envio
+
+```
+{
+  "stockitem":
+  {
+    "quantities": 1
+  }
+}
+```
 
 * exemplo de retorno apos atualizar o estoque
   * Lista de novas quantidades
@@ -299,11 +312,26 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 }
 ```
 #### REMOVE ITENS DE UM PRODUTO AO ESTOQUE
-* requisitos:
-  * id de um produto
+
+* requisitos via url:
+  * produto_id 
+* requisitos body:
   * quantidade
 * URL
-  * PUT 
+  * PUT  http://localhost:3000/api/v1/stockitems/lower/:product_id
+  * exemplo http://localhost:3000/api/v1/stockitems/lower/5
+
+  * exemplo de envio
+
+```
+{
+  "stockitem":
+  {
+    "quantities": 1
+  }
+}
+```
+
 
 * exemplo de retorno apos atualizar o estoque
   * Lista as novas quantidades retiradas
@@ -333,6 +361,26 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 {
   "msg": "Produto não existe em estoque"
 }
+```
+* exemplo de erro se o produto tive a baixo do estoque 
+  * retorno com o estoque atualizado e com os que não foram atualizado
+```
+[
+  {
+    "id": 2,
+    "quantities": 15,
+    "product_id": 5,
+    "store_id": 4,
+    "created_at": "2020-08-08T04:24:20.252Z",
+    "updated_at": "2020-08-08T06:06:44.033Z"
+  },
+  {
+    "id": 1,
+    "product_id": 5,
+    "current_quantities": 0,
+    "msg": "Estoque baixo!"
+  }
+]
 ```
 
 
