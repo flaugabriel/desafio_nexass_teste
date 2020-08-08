@@ -40,7 +40,7 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
   * POST http://localhost:3000/api/v1/products
 
 
-```
+```json
 {
   "product":
   {
@@ -51,7 +51,7 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 ```
 * resposta 
 
-```
+```json
 {
   "msg": "Produto registrado!",
   "status": "created"
@@ -67,7 +67,7 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 
 * json enviado via body:
 
-```
+```json
 {
   "product":
   {
@@ -77,7 +77,7 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 }
 ```
 * resposta
-```
+```json
 {
   "msg": "Produto atualizado!",
   "status": "created"
@@ -89,13 +89,13 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
   * DELETE http://localhost:3000/api/v1/products/:id
 * exemplo http://localhost:3000/api/v1/products/6
 * retorno 
-```
+```json
 {
   "msg": "Produto removido!"
 }
 ```
 * retorno em caso de erro
-```
+```json
 {
   "msg": "Produto não existe!"
 }
@@ -107,7 +107,7 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 * exemplo http://localhost:3000/api/v1/products/6
 
 * exemplo de retorno
-```
+```json
 {
   "id": 5,
   "name": "HyperX Alloy Core",
@@ -117,7 +117,7 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 }
 ```
 * exemplo de erro
-```
+```json
 {
   "msg": "Produto não encontrado!"
 }
@@ -135,7 +135,7 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
   * POST http://localhost:3000/api/v1/stores
 
 
-```
+```json
 {
   "store":
   {
@@ -149,7 +149,7 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 ```
 * resposta 
 
-```
+```json
 {
   "msg": "Loja registrada!",
   "status": "created"
@@ -163,7 +163,7 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 * exemplo http://localhost:3000/api/v1/stores/1
 * json enviado via body:
 
-```
+```json
 {
   "store":
   {
@@ -176,7 +176,7 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 }
 ```
 * resposta
-```
+```json
 {
   "msg": "Produto atualizado!",
   "status": "created"
@@ -188,13 +188,13 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
   DELETE http://localhost:3000/api/v1/stores/:id
 * exemplo http://localhost:3000/api/v1/stores/1
 * retorno 
-```
+```json
 {
   "msg": "Loja removida!"
 }
 ```
 * retorno em caso de erro
-```
+```json
 {
   "msg": "Loja não existe!"
 }
@@ -206,7 +206,7 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 * exemplo http://localhost:3000/api/v1/stores/1
 
 * exemplo de retorno
-```
+```json
 {
   "id": 1,
   "name": "Loja1000",
@@ -217,9 +217,10 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
   "created_at": "2020-08-07T19:42:50.699Z",
   "updated_at": "2020-08-08T03:12:36.935Z"
 }
+
 ```
 * exemplo de erro
-```
+```json
 {
   "msg": "Loja não encontrada!"
 }
@@ -239,7 +240,7 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
   * POST http://localhost:3000/api/v1/stockitems
 
 * exemplo enviado
-```
+```json
 {
   "stockitem":
   {
@@ -250,14 +251,14 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 }
 ```
 * exemplo de sucesso 
-```
+```json
 {
   "msg": "Item inserido ao estoque!",
   "status": "created"
 }
 ```
 * exemplo erros caso produto não existe ou loja
-```
+```json
 {
   "msg": "Product must exist and Store must exist"
 }
@@ -273,7 +274,7 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 
 * exemplo de envio
 
-```
+```json
 {
   "stockitem":
   {
@@ -285,7 +286,7 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 * exemplo de retorno apos atualizar o estoque
   * Lista de novas quantidades
 
-```
+```json
 [
     {
         "id": 1,
@@ -306,7 +307,7 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 ]
 ```
 * exemplo de erro se não tiver produto
-```
+```json
 {
   "msg": "Produto não existe em estoque"
 }
@@ -323,7 +324,7 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 
   * exemplo de envio
 
-```
+```json
 {
   "stockitem":
   {
@@ -336,7 +337,7 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 * exemplo de retorno apos atualizar o estoque
   * Lista as novas quantidades retiradas
 
-```
+```json
 [
     {
         "id": 1,
@@ -357,14 +358,14 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 ]
 ```
 * exemplo de erro se não tiver produto
-```
+```json
 {
   "msg": "Produto não existe em estoque"
 }
 ```
 * exemplo de erro se o produto tive a baixo do estoque 
   * retorno com o estoque atualizado e com os que não foram atualizado
-```
+```json
 [
   {
     "id": 2,
