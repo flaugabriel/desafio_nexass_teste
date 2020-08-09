@@ -31,7 +31,15 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 
 * URL 
 ```shell
+curl --location --request GET 'http://localhost:3000/api/v1/info'
+```
+* resposta
 
+```json
+{
+  "msg": "Yay! You’re on Rails!",
+  "version": "0.0.1"
+}
 ```
 
 # Operações sobre produto
@@ -459,5 +467,7 @@ curl --location --request PUT 'http://localhost:3000/api/v1/stockitems/lower/5' 
 
 ## SOBRE O DEPLOY
 ### HEROKU
-  * URL:
-   * https://desafionexassteste.herokuapp.com/
+* URL:
+  * https://desafionexassteste.herokuapp.com/
+* URL verção 
+  * https://desafionexassteste.herokuapp.com/api/v1/info
