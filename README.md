@@ -469,5 +469,5 @@ curl --location --request PUT 'http://localhost:3000/api/v1/stockitems/lower/5' 
 ### HEROKU
 * URL:
   * https://desafionexassteste.herokuapp.com/
-* URL verção 
+* URL versão 
   * https://desafionexassteste.herokuapp.com/api/v1/info
