@@ -27,7 +27,7 @@ development:
   <<: *default
   database: desafio_nexass_teste_development
 
-  test:
+test:
   <<: *default
   database: desafio_nexass_teste_test
 
