@@ -27,6 +27,13 @@ Este projeto tem como finaliade a criação de uma api JSON REST para gerenciame
 * Postman Canary utilizado para requisições REST.
 * Caso não opite por esta configuração do banco de dados, basta altera o database.yml para forma que preferi.
 
+## CONSULTA VERÇÃO DA API
+
+* URL 
+```shell
+
+```
+
 # Operações sobre produto
 
 
