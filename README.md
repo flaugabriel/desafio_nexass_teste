@@ -449,8 +449,3 @@ curl --location --request PUT 'http://localhost:3000/api/v1/stockitems/lower/5' 
   ```shell
     bundle exec rspec spec/requests/store_request_spec.rb
   ```
-* TESTE COM ESTOQUE
-  * rode o comando 
-  ```shell
-    bundle exec rspec spec/requests/stockitem_request_spec.rb
-  ```
