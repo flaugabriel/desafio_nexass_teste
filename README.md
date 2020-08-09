@@ -41,10 +41,14 @@ curl --location --request POST 'http://localhost:3000/api/v1/products' \
 * exemplo de envio via body
 ```json
 {
-  "product":
-  {
-    "name":"Suporte para 2 monitor MDBT",
-    "price": 250.00
+  "msg": "Produto registrado!",
+  "status": 200,
+  "product": {
+      "id": 17,
+      "name": "teste 94198",
+      "price": "250.0",
+      "created_at": "2020-08-09T01:48:31.724Z",
+      "updated_at": "2020-08-09T01:48:31.724Z"
   }
 }
 ```
@@ -61,10 +65,10 @@ curl --location --request POST 'http://localhost:3000/api/v1/products' \
 * Parametro id=6 
 * URL
 ```shell
- curl --location --request PUT 'http://localhost:3000/api/v1/products/6' \
+curl --location --request PUT 'http://localhost:3000/api/v1/products/6' \
 --header ': ' \
 --header 'Content-Type: application/json' \
---data-raw '{"product":{"name":"Suporte para 2 monitor MDBT no maximo 37 polegadas","price": 255.00}}'1
+--data-raw '{"product":{"name":"Suporte para 2 monitor MDBT no maximo 37 polegadas","price": 255.00}}'
 ```
 
 * json enviado via body:
@@ -97,10 +101,17 @@ curl --location --request DELETE 'http://localhost:3000/api/v1/products/3'
   "msg": "Produto removido!"
 }
 ```
-* retorno em caso de erro
+* retorno em caso de erro com produto nao existente
 ```json
 {
   "msg": "Produto não existe!"
+}
+```
+* retorno em caso de produto com estoque 
+```json
+{
+    "msg": "Produto com estoque!",
+    "status": 200
 }
 ```
 #### PESQUISAR PRODUTO
@@ -138,14 +149,18 @@ curl --location --request POST 'http://localhost:3000/api/v1/stores' \
 * exemplo de envio via body
 ```json
 {
-  "store":
-  {
-    "name":"Loja1",
-    "street": "Algodoeiro",
-    "neighborhood": "Eletronorte",
-    "city":"Porto Velho", 
-    "cep": 76808518
-  }
+    "msg": "Loja registrada!",
+    "status": 200,
+    "store": {
+        "id": 9,
+        "name": "teste 5165",
+        "street": "Algodoeiro",
+        "neighborhood": "Eletronorte",
+        "city": "Porto Velho",
+        "cep": 76808518,
+        "created_at": "2020-08-09T01:48:07.112Z",
+        "updated_at": "2020-08-09T01:48:07.112Z"
+    }
 }
 ```
 * resposta 
@@ -344,7 +359,6 @@ curl --location --request PUT 'http://localhost:3000/api/v1/stockitems/lower/5' 
 }'
 ```
 * exemplo de envio
-
 ```json
 {
   "stockitem":
@@ -353,29 +367,27 @@ curl --location --request PUT 'http://localhost:3000/api/v1/stockitems/lower/5' 
   }
 }
 ```
-
-
 * exemplo de retorno apos atualizar o estoque
   * Lista as novas quantidades retiradas
 
 ```json
 [
-    {
-        "id": 1,
-        "quantities": 42,
-        "product_id": 5,
-        "store_id": 2,
-        "created_at": "2020-08-08T03:50:39.040Z",
-        "updated_at": "2020-08-08T05:04:05.671Z"
-    },
-    {
-        "id": 2,
-        "quantities": 34,
-        "product_id": 5,
-        "store_id": 4,
-        "created_at": "2020-08-08T04:24:20.252Z",
-        "updated_at": "2020-08-08T05:04:05.678Z"
-    }
+  {
+    "id": 1,
+    "quantities": 42,
+    "product_id": 5,
+    "store_id": 2,
+    "created_at": "2020-08-08T03:50:39.040Z",
+    "updated_at": "2020-08-08T05:04:05.671Z"
+  },
+  {
+    "id": 2,
+    "quantities": 34,
+    "product_id": 5,
+    "store_id": 4,
+    "created_at": "2020-08-08T04:24:20.252Z",
+    "updated_at": "2020-08-08T05:04:05.678Z"
+  }
 ]
 ```
 * exemplo de erro se não tiver produto
@@ -404,5 +416,3 @@ curl --location --request PUT 'http://localhost:3000/api/v1/stockitems/lower/5' 
   }
 ]
 ```
-
-

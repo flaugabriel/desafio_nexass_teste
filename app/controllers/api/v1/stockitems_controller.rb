@@ -8,7 +8,7 @@ module Api
       def create
         @stockitem = Stockitem.new(stockitem_params)
         if @stockitem.save
-          render json: { msg: 'Item inserido ao estoque!', status: :created }
+          render json: { msg: 'Item inserido ao estoque!', status: status }
         else
           render json: { msg: @stockitem.errors.full_messages.to_sentence }
         end
@@ -22,7 +22,7 @@ module Api
           get_stock.update(quantities: new_stock_item[:quantities].to_i)
           return_of_stock.push(get_stock)
         end
-        render json: return_of_stock
+        render json: return_of_stock, status: status
       end
 
       def lower
@@ -39,7 +39,7 @@ module Api
           end
           return_of_stock.push(get_stock)
         end
-        render json: return_of_stock
+        render json: return_of_stock, status: status
       end
 
       private

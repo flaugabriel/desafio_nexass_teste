@@ -3,7 +3,10 @@
 class Stockitem < ApplicationRecord
   belongs_to :product
   belongs_to :store
+
   validates_presence_of :quantities
+  validates_presence_of :product
+  validates_presence_of :store
 
   validate :not_min_quantities, on: :update
 
