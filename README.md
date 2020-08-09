@@ -421,3 +421,36 @@ curl --location --request PUT 'http://localhost:3000/api/v1/stockitems/lower/5' 
   }
 ]
 ```
+## SOBRE OS TESTES
+### MODELS
+* TESTE COM PRODUTOS
+  * rode o comando 
+  ```shell
+    bundle exec rspec spec/models/product_spec.rb
+  ```
+* TESTE COM LOJAS
+  * rode o comando 
+  ```shell
+    bundle exec rspec spec/models/store_spec.rb
+  ```
+* TESTE COM ESTOQUE
+  * rode o comando
+  ```shell
+    bundle exec rspec spec/models/store_spec.rb
+  ```
+### CONTROLLERS
+* TESTE COM PRODUTOS
+  * rode o comando 
+  ```shell
+    bundle exec rspec spec/requests/product_request_spec.rb
+  ```
+* TESTE COM LOJAS
+  * rode o comando 
+  ```shell
+    bundle exec rspec spec/requests/store_request_spec.rb
+  ```
+* TESTE COM ESTOQUE
+  * rode o comando 
+  ```shell
+    bundle exec rspec spec/requests/stockitem_request_spec.rb
+  ```

@@ -14,10 +14,4 @@ RSpec.describe Stockitem, type: :model do
   context 'validate associations' do
     it { should belong_to(:store) }
   end
-
-  describe 'Not permit min quantities' do
-    it 'is a quantities permited' do
-      # expect(should Stockitem.new.not_min_quantities).to eq(1)
-    end
-  end
 end
