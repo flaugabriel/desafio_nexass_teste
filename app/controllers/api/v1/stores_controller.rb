@@ -3,13 +3,6 @@ module Api
     class StoresController < ApplicationController
       before_action :set_store, only: %i[show update destroy]
     
-      # GET /stores
-      def index
-        @stores = Store.all
-      
-        render json: @stores
-      end
-    
       # GET /stores/1
       def show
         if @store.present?
