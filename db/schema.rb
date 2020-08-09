@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 2020_08_07_172908) do
     t.bigint "product_id", null: false
     t.bigint "store_id", null: false
     t.integer "quantities"
+    t.integer "flow"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["product_id"], name: "index_stockitems_on_product_id"

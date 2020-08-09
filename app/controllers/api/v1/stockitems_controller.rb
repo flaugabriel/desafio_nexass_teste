@@ -6,9 +6,9 @@ module Api
       before_action :find_product, only: %i[add lower]
 
       def create
-        @stockitem = Stockitem.new(stockitem_params)
+        @stockitem = Stockitem.new(stockitem_params.merge(flow: 0))
         if @stockitem.save
-          render json: { msg: 'Item inserido ao estoque!', status: status }
+          render json: { msg: 'Item inserido ao estoque!', status: status, stock_item: @stockitem }
         else
           render json: { msg: @stockitem.errors.full_messages.to_sentence }
         end
@@ -19,7 +19,7 @@ module Api
         new_stock_itens = @stockitem.quantities_by_products_add(stockitem_params.merge(product_id: @stock_product.id))
         new_stock_itens.each do |new_stock_item|
           get_stock = Stockitem.find(new_stock_item[:id])
-          get_stock.update(quantities: new_stock_item[:quantities].to_i)
+          get_stock.update(quantities: new_stock_item[:quantities].to_i, flow: new_stock_item[:flow])
           return_of_stock.push(get_stock)
         end
         render json: return_of_stock, status: status
@@ -30,7 +30,7 @@ module Api
         new_stock_itens = @stockitem.quantities_by_products_lower(stockitem_params.merge(product_id: @stock_product.id))
         new_stock_itens.each do |new_stock_item|
           get_stock = Stockitem.find(new_stock_item[:id])
-          get_stock.update(quantities: new_stock_item[:quantities].to_i)
+          get_stock.update(quantities: new_stock_item[:quantities].to_i, flow: new_stock_item[:flow])
           if get_stock.errors.messages.present?
             get_stock.errors.messages[:quantities].each do |errors|
               return_of_stock.push(errors)

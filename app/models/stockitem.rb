@@ -23,11 +23,12 @@ class Stockitem < ApplicationRecord
 
   def quantities_by_products_add(params)
     new_stock = []
-    current_stocks = Stockitem.find_product(params[:product_id]).select(:id, :quantities)
+    current_stocks = Stockitem.find_product(params[:product_id]).select(:id, :quantities, :flow)
     current_stocks.each do |current_stock|
       new_iten = {
         id: current_stock.id,
-        quantities: params[:quantities].to_i + current_stock.quantities
+        quantities: params[:quantities].to_i + current_stock.quantities,
+        flow: current_stock.flow + 1
       }
       new_stock.push(new_iten)
     end
@@ -36,12 +37,12 @@ class Stockitem < ApplicationRecord
 
   def quantities_by_products_lower(params)
     new_stock = []
-    current_stocks = Stockitem.find_product(params[:product_id]).select(:id, :quantities)
+    current_stocks = Stockitem.find_product(params[:product_id]).select(:id, :quantities, :flow)
     current_stocks.each do |current_stock|
-      # next if current_stock.quantities == 0
       new_iten = {
         id: current_stock.id,
-        quantities: current_stock.quantities - params[:quantities].to_i
+        quantities: current_stock.quantities - params[:quantities].to_i,
+        flow: current_stock.flow + 1
       }
       new_stock.push(new_iten)
     end

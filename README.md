@@ -313,25 +313,27 @@ curl --location --request PUT 'http://localhost:3000/api/v1/stockitems/add/5' \
 ```
 
 * exemplo de retorno apos atualizar o estoque
-  * Lista de novas quantidades
+  * Lista de novas quantidades e o total de movimentaçoes (flow)
 
 ```json
 [
     {
         "id": 1,
-        "quantities": 42,
-        "product_id": 5,
-        "store_id": 2,
-        "created_at": "2020-08-08T03:50:39.040Z",
-        "updated_at": "2020-08-08T05:04:05.671Z"
+        "quantities": 5,
+        "flow": 1,
+        "product_id": 1,
+        "store_id": 1,
+        "created_at": "2020-08-09T03:50:33.417Z",
+        "updated_at": "2020-08-09T03:55:51.529Z"
     },
     {
         "id": 2,
-        "quantities": 34,
-        "product_id": 5,
-        "store_id": 4,
-        "created_at": "2020-08-08T04:24:20.252Z",
-        "updated_at": "2020-08-08T05:04:05.678Z"
+        "quantities": 5,
+        "flow": 1,
+        "product_id": 1,
+        "store_id": 1,
+        "created_at": "2020-08-09T03:51:13.668Z",
+        "updated_at": "2020-08-09T03:55:51.537Z"
     }
 ]
 ```
@@ -368,26 +370,28 @@ curl --location --request PUT 'http://localhost:3000/api/v1/stockitems/lower/5' 
 }
 ```
 * exemplo de retorno apos atualizar o estoque
-  * Lista as novas quantidades retiradas
+  * Lista as novas quantidades retiradas e o total de movimentaçoes (flow)
 
 ```json
 [
-  {
-    "id": 1,
-    "quantities": 42,
-    "product_id": 5,
-    "store_id": 2,
-    "created_at": "2020-08-08T03:50:39.040Z",
-    "updated_at": "2020-08-08T05:04:05.671Z"
-  },
-  {
-    "id": 2,
-    "quantities": 34,
-    "product_id": 5,
-    "store_id": 4,
-    "created_at": "2020-08-08T04:24:20.252Z",
-    "updated_at": "2020-08-08T05:04:05.678Z"
-  }
+    {
+        "id": 1,
+        "quantities": 4,
+        "flow": 2,
+        "product_id": 1,
+        "store_id": 1,
+        "created_at": "2020-08-09T03:50:33.417Z",
+        "updated_at": "2020-08-09T03:57:56.240Z"
+    },
+    {
+        "id": 2,
+        "quantities": 4,
+        "flow": 2,
+        "product_id": 1,
+        "store_id": 1,
+        "created_at": "2020-08-09T03:51:13.668Z",
+        "updated_at": "2020-08-09T03:57:56.251Z"
+    }
 ]
 ```
 * exemplo de erro se não tiver produto
@@ -404,6 +408,7 @@ curl --location --request PUT 'http://localhost:3000/api/v1/stockitems/lower/5' 
     "id": 2,
     "quantities": 15,
     "product_id": 5,
+    "flow": 2,
     "store_id": 4,
     "created_at": "2020-08-08T04:24:20.252Z",
     "updated_at": "2020-08-08T06:06:44.033Z"
